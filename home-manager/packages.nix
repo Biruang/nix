@@ -5,6 +5,5 @@
     #telegram-desktop
     vscode
     firefox
-    fuzzel
   ];
 } 

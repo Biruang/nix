@@ -9,5 +9,6 @@
     ./user.nix
     ./nix.nix
     ./amnezia.nix
+    ./hyprland.nix
   ];
 }
