@@ -42,7 +42,7 @@
       };
       modules = [ 
         ./home-manager/home.nix
-        disko.nixosModules.disko
+        #disko.nixosModules.disko
         #./disco.nix
       ];
     };

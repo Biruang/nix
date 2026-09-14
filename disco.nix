@@ -7,7 +7,7 @@
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
+            boot = {
               priority = 1;
               size = "1G";
               type = "EF00";
