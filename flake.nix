@@ -8,13 +8,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
+    disco = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, disko, home-manager, ... }@inputs:
   let 
     system = "x86_64-linux";
     homeStateVersion = "26.05";
@@ -37,6 +42,8 @@
       };
       modules = [ 
         ./home-manager/home.nix
+        disko.nixosModules.disko
+        #./disco.nix
       ];
     };
   };
