@@ -18,6 +18,4 @@
     layout = "us";
     variant = "";
   };
-
-  programs.niri.enable = true;
 }
