@@ -6,5 +6,6 @@
     ./alacritty.nix
     ./rofi.nix
     ./stylix.nix
+    ./waybar
   ];
 }

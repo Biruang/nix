@@ -1,0 +1,34 @@
+{
+  programs.waybar = {
+    enable = true;
+
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 30;
+
+        modules-left = [
+          "hyprland/workspaces"
+          "sway/mode"
+        ];
+        modules-center = ["hyprland/window"];
+        modules-right = [
+          "hyprland/language"
+          "clock"
+          "tray"
+        ];
+
+        "clock" = {
+          format = "{:%d.%m.%Y - %H:%M}";
+          format-alt = "{:%A, %B %d at %R}";
+        };
+
+        "tray" = {
+          icon-size = 14;
+          spacing = 1;
+        };
+      };
+    };
+  };
+}

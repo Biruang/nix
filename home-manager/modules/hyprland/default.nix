@@ -4,5 +4,7 @@
     ./keybinds.nix
     ./variables.nix
     ./config.nix
+    ./autostart.nix
+    ./animations.nix
   ];
 }

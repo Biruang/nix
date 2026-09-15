@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, map, ... }: {
   wayland.windowManager.hyprland = {
     settings = {
       bind = [
@@ -6,7 +6,6 @@
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + Q\"")
             (lib.generators.mkLuaInline "hl.dsp.exec_cmd(terminal)")
-            { locked = true; }
           ];
         }
         {
@@ -89,6 +88,47 @@
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + mouse_up\"")
             (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = 'e-1' })")
+          ];
+        }
+        # resize and drag with mainMod + mouse
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + mouse:272\"")
+            (lib.generators.mkLuaInline "hl.dsp.window.drag()")
+            { mouse = true; }
+          ];
+        }
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + mouse:273\"")
+            (lib.generators.mkLuaInline "hl.dsp.window.resize()")
+            { mouse = true; }
+          ];
+        }
+        #switch workspace with mainMod + [0-9]
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + 1\"")
+            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = 0})")
+          ];
+        }
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + 2\"")
+            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = 1})")
+          ];
+        }
+        #move window to workspace with mainMode + SHIFT + [0,9]
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + SHIFT\" .. \" + 1\"")
+            (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = 0 })")
+          ];
+        }
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + SHIFT\" .. \" + 2\"")
+            (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = 1 })")
           ];
         }
       ];
