@@ -5,5 +5,6 @@
     ./hyprland
     ./alacritty.nix
     ./rofi.nix
+    ./stylix.nix
   ];
 }

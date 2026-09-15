@@ -17,9 +17,14 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, disko, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, disko, home-manager, stylix, ... }@inputs:
   let 
     system = "x86_64-linux";
     homeStateVersion = "26.05";
@@ -31,6 +36,7 @@
         inherit inputs homeStateVersion user;
       };
       modules = [
+        stylix.nixosModules.stylix
         ./nixos/configuration.nix
       ];
     };
