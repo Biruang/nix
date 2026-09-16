@@ -8,5 +8,7 @@
     qt6Packages.qtwayland
     #LSP for nix
     nixd
+    #secure secrets management
+    #secretspec
   ];
 }
