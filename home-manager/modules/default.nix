@@ -6,7 +6,8 @@
     ./alacritty.nix
     ./rofi.nix
     ./stylix.nix
-    ./waybar
+    #./waybar
     ./swaync.nix
+    ./quickshell
   ];
 }

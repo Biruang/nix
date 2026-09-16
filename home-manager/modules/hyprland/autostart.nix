@@ -6,7 +6,7 @@
           "hyprland.start"
           (
             lib.generators.mkLuaInline ("function ()" +
-            " hl.exec_cmd('waybar & firefox & AmneziaVPN')" + 
+            " hl.exec_cmd('firefox & AmneziaVPN')" + 
             " end")
           )
         ];
