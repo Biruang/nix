@@ -31,6 +31,22 @@
           };
         };
 
+        "pulseaudio" = {
+          format = "{icon} {volume}%";
+          format-bluetooth = "{icon} {volume}% ";
+          format-muted = "";
+          format-icons = {
+            "headphones" = "";
+            "handsfree" = "";
+            "headset" = "";
+            "phone" = "";
+            "portable" = "";
+            "car" = "";
+            "default" = ["" ""];
+          };
+          on-click = "pavucontrol";
+        };
+
         "clock" = {
           format = "{:%d.%m.%Y - %H:%M}";
           format-alt = "{:%A, %B %d at %R}";

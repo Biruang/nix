@@ -37,7 +37,9 @@
       };
       modules = [
         stylix.nixosModules.stylix
+        #disko.nixosModules.disko
         ./nixos/configuration.nix
+        #./disco.nix
       ];
     };
 
@@ -48,8 +50,7 @@
       };
       modules = [ 
         ./home-manager/home.nix
-        #disko.nixosModules.disko
-        #./disco.nix
+        
       ];
     };
   };
