@@ -7,5 +7,6 @@
     ./rofi.nix
     ./stylix.nix
     ./waybar
+    ./swaync.nix
   ];
 }

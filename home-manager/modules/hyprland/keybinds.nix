@@ -14,13 +14,12 @@
             (lib.generators.mkLuaInline "hl.dsp.window.close()")
           ];
         }
-        #{
-        #  _args = [
-        #    (lib.generators.mkLuaInline "mainMod .. \" + M\"")
-        #    (lib.generators.mkLuaInline "hl.dsp.exec_cmd(terminal)")
-        #    { locked = true; }
-        #  ];
-        #}
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + R\"")
+            (lib.generators.mkLuaInline "hl.dsp.layout('colresize +conf')")
+          ];
+        }
         #{
         #  _args = [
         #    (lib.generators.mkLuaInline "mainMod .. \" + E\"")
@@ -36,7 +35,7 @@
         }
         {
           _args = [
-            (lib.generators.mkLuaInline "mainMod .. \" + R\"")
+            (lib.generators.mkLuaInline "mainMod .. \" + D\"")
             (lib.generators.mkLuaInline "hl.dsp.exec_cmd(menu .. \" -show drun\")")
           ];
         }

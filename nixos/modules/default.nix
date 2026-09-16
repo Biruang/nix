@@ -10,5 +10,7 @@
     ./nix.nix
     ./amnezia.nix
     ./hyprland.nix
+    ./audio.nix
+    ./nh.nix
   ];
 }

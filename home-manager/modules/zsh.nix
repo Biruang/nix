@@ -7,5 +7,12 @@
 
     history.size = 10000;
     history.path = "${config.xdg.dataHome}/zsh/history";
+
+    initExtra = ''
+      # Start UWSM
+      if uwsm check may-start > /dev/null && uwsm select; then
+        exec systemd-cat -t uwsm_start uwsm start default
+      fi
+    '';
   };
 }

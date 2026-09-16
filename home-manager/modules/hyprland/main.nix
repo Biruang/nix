@@ -4,8 +4,9 @@
     # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
     package = null;
     portalPackage = null;
+    #conflicts with UWSM
     systemd.enable = false;
-    xwayland.enable = true;
+    #xwayland.enable = true;
 
     settings = {
       monitor = {

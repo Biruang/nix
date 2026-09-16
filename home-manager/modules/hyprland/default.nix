@@ -6,5 +6,8 @@
     ./config.nix
     ./autostart.nix
     ./animations.nix
+    ./hyprlock.nix
+    ./hyprpaper.nix
+    ./hypridle.nix
   ];
 }

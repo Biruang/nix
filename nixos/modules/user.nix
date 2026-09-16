@@ -7,9 +7,8 @@
       description = "default user";
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" ];
-      #packages = with pkgs; [];
     };
   };
 
-  #services.getty.autologinUser = user;
+  services.getty.autologinUser = user;
 }

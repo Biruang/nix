@@ -18,16 +18,8 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
-            swap = {
-              priority = 2;
-              size = "36G";
-              content = {
-                type = "swap";
-                resumeDevice = true;
-              };
-            };
             root = {
-              priority = 3;
+              priority = 2;
               size = "100%";
               content = {
                 type = "btrfs";

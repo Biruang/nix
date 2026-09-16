@@ -3,5 +3,8 @@
 
   environment.systemPackages = with pkgs; [
    amnezia-vpn
+   #for Qt wayland support
+   libsForQt5.qt5.qtwayland
+   qt6Packages.qtwayland
   ];
 }

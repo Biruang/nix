@@ -16,8 +16,20 @@
         modules-right = [
           "hyprland/language"
           "clock"
+          "pulseaudio"
           "tray"
         ];
+
+        "hyprland/workspaces" = {
+          disable-scroll = true;
+          show-special = true;
+          special-visible-only = true;
+          all-outputs = false;
+
+          persistent-workspaces = {
+            "*" = 9;
+          };
+        };
 
         "clock" = {
           format = "{:%d.%m.%Y - %H:%M}";

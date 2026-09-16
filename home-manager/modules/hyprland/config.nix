@@ -20,11 +20,12 @@
 
           resize_on_border = false;
           allow_tearing = false;
-          layout = "dwindle";
+          layout = "scrolling";
         };
 
-        dwindle = {
-          preserve_split = true;
+        scrolling = {
+          fullscreen_on_one_column = true;
+          explicit_column_widths = "0.5, 0.667, 1.0";
         };
 
         decoration = {
@@ -59,7 +60,7 @@
           kb_options = "";
           kb_rules = "";
 
-          follow_mouse = 1;
+          follow_mouse = 2;
 
           sensitivity = 0;
 
