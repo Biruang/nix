@@ -1,5 +1,9 @@
-{ pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.homeModules.stylix ];
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [inputs.stylix.homeModules.stylix];
 
   home.packages = with pkgs; [
     dejavu_fonts
@@ -20,7 +24,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/0x96f.yaml";
 
     targets = {
-    #  hyprland.enable = false;
+      #  hyprland.enable = false;
     };
 
     cursor = {

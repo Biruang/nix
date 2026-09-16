@@ -3,7 +3,6 @@
     enable = true;
     settings = {
       general = {
-
       };
     };
   };

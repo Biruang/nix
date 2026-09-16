@@ -1,4 +1,8 @@
-{ lib, map, ... }: {
+{
+  lib,
+  map,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     settings = {
       bind = [
@@ -94,14 +98,14 @@
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + mouse:272\"")
             (lib.generators.mkLuaInline "hl.dsp.window.drag()")
-            { mouse = true; }
+            {mouse = true;}
           ];
         }
         {
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + mouse:273\"")
             (lib.generators.mkLuaInline "hl.dsp.window.resize()")
-            { mouse = true; }
+            {mouse = true;}
           ];
         }
         #switch workspace with mainMod + [0-9]

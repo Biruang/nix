@@ -2,7 +2,7 @@
   description = "Nixos flake system configuration";
 
   nixConfig = {
-    access-tokens = [ "github.com=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" ];
+    access-tokens = ["github.com=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"];
   };
 
   inputs = {
@@ -22,17 +22,30 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    #nixos formatter
+    alejandra = {
+      url = "github:kamadorueda/alejandra/4.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, disko, home-manager, stylix, ... }@inputs:
-  let 
+  outputs = {
+    self,
+    nixpkgs,
+    disko,
+    alejandra,
+    home-manager,
+    stylix,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
     homeStateVersion = "26.05";
     user = "biruang";
   in {
     nixosConfigurations.${user} = nixpkgs.lib.nixosSystem {
       system = system;
-      specialArgs = { 
+      specialArgs = {
         inherit inputs homeStateVersion user;
       };
       modules = [
@@ -40,6 +53,9 @@
         #disko.nixosModules.disko
         ./nixos/configuration.nix
         #./disco.nix
+        {
+          environment.systemPackages = [alejandra.defaultPackage.${system}];
+        }
       ];
     };
 
@@ -48,9 +64,8 @@
       extraSpecialArgs = {
         inherit inputs homeStateVersion user;
       };
-      modules = [ 
+      modules = [
         ./home-manager/home.nix
-        
       ];
     };
   };

@@ -1,5 +1,5 @@
-{ lib, ... }: {
-  wayland.windowManager.hyprland = { 
+{lib, ...}: {
+  wayland.windowManager.hyprland = {
     enable = true;
     # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
     package = null;
@@ -15,14 +15,14 @@
         position = "auto";
         scale = "auto";
       };
-      
+
       env = [
-      #  "NIXOS_OZONE_WL,1"
-      #  "XDG_CURRENT_DESKTOP,Hyprland"
-      #  "XDG_SESSION_TYPE,wayland"
-      #  "XDG_SESSION_DESKTOP,Hyprland"
-      #  "QT_QPA_PLATFORM,wayland"
-      #  "XDG_SCREENSHOTS_DIR,$HOME/screens"
+        #  "NIXOS_OZONE_WL,1"
+        #  "XDG_CURRENT_DESKTOP,Hyprland"
+        #  "XDG_SESSION_TYPE,wayland"
+        #  "XDG_SESSION_DESKTOP,Hyprland"
+        #  "QT_QPA_PLATFORM,wayland"
+        #  "XDG_SCREENSHOTS_DIR,$HOME/screens"
         {
           _args = [
             "XCURSOR_SIZE"
@@ -40,7 +40,7 @@
       #Ignore maximize requests from all apps.
       window_rule = {
         name = "suppress-maximize-events";
-        match = { class = ".*"; };
+        match = {class = ".*";};
         suppress_event = "maximize";
       };
     };

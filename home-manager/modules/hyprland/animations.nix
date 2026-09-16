@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   wayland.windowManager.hyprland = {
     settings = {
       curve = [
@@ -6,38 +6,38 @@
         {
           _args = [
             "easeOutQuint"
-            (lib.generators.mkLuaInline("{ type = 'bezier', points = {{0.23, 1}, {0.32, 1}}}"))
+            (lib.generators.mkLuaInline "{ type = 'bezier', points = {{0.23, 1}, {0.32, 1}}}")
           ];
         }
         {
           _args = [
             "easeInOutCubic"
-            (lib.generators.mkLuaInline("{ type = 'bezier', points = {{0.65, 0.05}, {0.36, 1}}}"))
+            (lib.generators.mkLuaInline "{ type = 'bezier', points = {{0.65, 0.05}, {0.36, 1}}}")
           ];
         }
         {
           _args = [
             "linear"
-            (lib.generators.mkLuaInline("{ type = 'bezier', points = {{0, 0}, {1, 1}}}"))
+            (lib.generators.mkLuaInline "{ type = 'bezier', points = {{0, 0}, {1, 1}}}")
           ];
         }
         {
           _args = [
             "almostLinear"
-            (lib.generators.mkLuaInline("{ type = 'bezier', points = {{0.5, 0.5}, {0.75, 1}}}"))
+            (lib.generators.mkLuaInline "{ type = 'bezier', points = {{0.5, 0.5}, {0.75, 1}}}")
           ];
         }
         {
           _args = [
             "quick"
-            (lib.generators.mkLuaInline("{ type = 'bezier', points = {{0.15, 0}, {0.1, 1}}}"))
+            (lib.generators.mkLuaInline "{ type = 'bezier', points = {{0.15, 0}, {0.1, 1}}}")
           ];
         }
         #Default springs
         {
           _args = [
             "easy"
-            (lib.generators.mkLuaInline("{ type = 'spring', mass = 1, stiffness = 71.2633, dampening = 15.8273644 }"))
+            (lib.generators.mkLuaInline "{ type = 'spring', mass = 1, stiffness = 71.2633, dampening = 15.8273644 }")
           ];
         }
       ];
@@ -51,7 +51,7 @@
           speed = 10;
           bezier = "default";
         }
-        { 
+        {
           leaf = "border";
           enabled = true;
           speed = 5.39;
@@ -77,13 +77,13 @@
           bezier = "linear";
           style = "popin 87%";
         }
-        { 
+        {
           leaf = "fadeIn";
           enabled = true;
           speed = 1.73;
           bezier = "almostLinear";
         }
-        { 
+        {
           leaf = "fadeOut";
           enabled = true;
           speed = 1.46;
@@ -108,7 +108,7 @@
           bezier = "easeOutQuint";
           style = "fade";
         }
-        { 
+        {
           leaf = "layersOut";
           enabled = true;
           speed = 1.5;

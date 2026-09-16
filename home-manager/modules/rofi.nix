@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.rofi = {
     enable = true;
     #theme = "Arthur";
@@ -8,7 +8,7 @@
       "drun"
       "run"
       "window"
-      "ssh"  
+      "ssh"
     ];
     extraConfig = {
       show-icons = true;
