@@ -108,13 +108,13 @@
         {
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + 1\"")
-            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = 0})")
+            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = '0'})")
           ];
         }
         {
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + 2\"")
-            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = 1})")
+            (lib.generators.mkLuaInline "hl.dsp.focus({ workspace = '1' })")
           ];
         }
         #move window to workspace with mainMode + SHIFT + [0,9]
