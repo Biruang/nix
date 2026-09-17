@@ -13,10 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #disc partitioning
-    disco = {
-      url = "github:nix-community/disko/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #disco = {
+    #  url = "github:nix-community/disko/latest";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     #stylix = {
     #  url = "github:nix-community/stylix/release -26.05";
@@ -33,31 +33,75 @@
   outputs = {
     self,
     nixpkgs,
-    disko,
     alejandra,
     home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    homeStateVersion = "26.05";
+    stateVersion = "26.05";
     user = "biruang";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations.${user} = nixpkgs.lib.nixosSystem {
-      system = system;
-      specialArgs = {
-        inherit inputs homeStateVersion user;
+    #pkgs = nixpkgs.legacyPackages.${system};
+
+    hosts = [
+      {hostname = "main";}
+    ];
+    #system config constructor for hosts
+    makeSystem = {hostname}:
+      nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          inherit inputs stateVersion hostname user;
+        };
+
+        modules = [
+          ./hosts/${hostname}/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs stateVersion user;};
+            home-manager.users.${user} = ./hosts/${hostname}/home.nix;
+            home-manager.backupFileExtension = "backup";
+          }
+          #stylix.nixosModules.stylix
+          #disko.nixosModules.disko
+          #./disco.nix
+          {
+            environment.systemPackages = [alejandra.defaultPackage.${system}];
+          }
+        ];
       };
-      modules = [
-        ./nixos/configuration.nix
-        inputs.home-manager.nixosModules.default
-        #stylix.nixosModules.stylix
-        #disko.nixosModules.disko
-        #./disco.nix
-        {
-          environment.systemPackages = [alejandra.defaultPackage.${system}];
-        }
-      ];
-    };
+  in {
+    nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
+      configs
+      // {
+        "${host.hostname}" = makeSystem {
+          inherit (host) hostname;
+        };
+      }) {}
+    hosts;
+
+    #nixosConfigurations = {
+    #  ${user} = nixpkgs.lib.nixosSystem {
+    #    system = system;
+    #    specialArgs = {
+    #      inherit inputs stateVersion user;
+    #    };
+    #    modules = [
+    #      ./nixos/configuration.nix
+    #      home-manager.nixosModules.home-manager
+    #      {
+    #        home-manager.useGlobalPkgs = true;
+    #        home-manager.useUserPackages = true;
+    #        home-manager.extraSpecialArgs = {inherit inputs stateVersion user;};
+    #        home-manager.users.biruang = ./home-manager/home.nix;
+    #        home-manager.backupFileExtension = "backup";
+    #      }
+    #      {
+    #        environment.systemPackages = [alejandra.defaultPackage.${system}];
+    #      }
+    #    ];
+    #  };
+    #};
   };
 }

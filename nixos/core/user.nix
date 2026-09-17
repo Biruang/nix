@@ -1,10 +1,14 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  user,
+  ...
+}: {
   programs.zsh.enable = true;
 
   users = {
     defaultUserShell = pkgs.zsh;
     users = {
-      biruang = {
+      ${user} = {
         description = "default user";
         isNormalUser = true;
         shell = pkgs.zsh;

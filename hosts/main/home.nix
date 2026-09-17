@@ -1,17 +1,17 @@
 {
-  homeStateVersion,
+  stateVersion,
   user,
   ...
 }: {
   imports = [
-    ./modules
-    ./packages.nix
+    ../../home-manager/modules
+    ../../home-manager/packages.nix
   ];
 
   home = {
     username = user;
     homeDirectory = "/home/${user}";
-    stateVersion = homeStateVersion;
+    stateVersion = stateVersion;
     keyboard = null;
   };
 }
