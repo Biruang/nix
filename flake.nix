@@ -2,7 +2,7 @@
   description = "Nixos flake system configuration";
 
   nixConfig = {
-    access-tokens = ["github.com=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"];
+    access-tokens = ["github.com=<...>"];
   };
 
   inputs = {
