@@ -1,27 +1,27 @@
 {
-  description = "Nixos flake system configuration";
+  description = "Nixos config flake";
 
   nixConfig = {
-    access-tokens = ["github.com=<...>"];
+    access-tokens = ["github.com="];
   };
 
   inputs = {
+    #system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #disc partitioning
     disco = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    stylix = {
-      url = "github:nix-community/stylix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #stylix = {
+    #  url = "github:nix-community/stylix/release -26.05";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     #nixos formatter
     alejandra = {
@@ -36,12 +36,12 @@
     disko,
     alejandra,
     home-manager,
-    stylix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     homeStateVersion = "26.05";
     user = "biruang";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations.${user} = nixpkgs.lib.nixosSystem {
       system = system;
@@ -49,23 +49,14 @@
         inherit inputs homeStateVersion user;
       };
       modules = [
-        stylix.nixosModules.stylix
-        #disko.nixosModules.disko
         ./nixos/configuration.nix
+        inputs.home-manager.nixosModules.default
+        #stylix.nixosModules.stylix
+        #disko.nixosModules.disko
         #./disco.nix
         {
           environment.systemPackages = [alejandra.defaultPackage.${system}];
         }
-      ];
-    };
-
-    homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      extraSpecialArgs = {
-        inherit inputs homeStateVersion user;
-      };
-      modules = [
-        ./home-manager/home.nix
       ];
     };
   };

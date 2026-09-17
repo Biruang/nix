@@ -54,11 +54,9 @@
         };
 
         input = {
-          kb_layout = "us";
-          kb_variant = "";
-          kb_model = "";
-          kb_options = "";
-          kb_rules = "";
+          kb_layout = "us,ru";
+          kb_variant = ",";
+          kb_options = "grp:alt_shift_toggle";
 
           follow_mouse = 2;
 

@@ -5,7 +5,7 @@
     ./hyprland
     ./alacritty.nix
     ./rofi.nix
-    ./stylix.nix
+    #./stylix.nix
     #./waybar
     ./swaync.nix
     ./quickshell

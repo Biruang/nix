@@ -12,5 +12,6 @@
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
+    keyboard = null;
   };
 }
