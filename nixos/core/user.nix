@@ -11,6 +11,7 @@
       ${user} = {
         description = "default user";
         isNormalUser = true;
+        initialPassword = "111";
         shell = pkgs.zsh;
         extraGroups = ["wheel" "networkmanager"];
       };

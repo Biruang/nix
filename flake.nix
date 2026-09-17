@@ -66,8 +66,7 @@
           }
           #stylix.nixosModules.stylix
           disko.nixosModules.disko
-          ./hosts/${hostname}/disco.nix
-          #./disco.nix
+          ./hosts/${hostname}/disko.nix
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
           }
@@ -82,28 +81,5 @@
         };
       }) {}
     hosts;
-
-    #nixosConfigurations = {
-    #  ${user} = nixpkgs.lib.nixosSystem {
-    #    system = system;
-    #    specialArgs = {
-    #      inherit inputs stateVersion user;
-    #    };
-    #    modules = [
-    #      ./nixos/configuration.nix
-    #      home-manager.nixosModules.home-manager
-    #      {
-    #        home-manager.useGlobalPkgs = true;
-    #        home-manager.useUserPackages = true;
-    #        home-manager.extraSpecialArgs = {inherit inputs stateVersion user;};
-    #        home-manager.users.biruang = ./home-manager/home.nix;
-    #        home-manager.backupFileExtension = "backup";
-    #      }
-    #      {
-    #        environment.systemPackages = [alejandra.defaultPackage.${system}];
-    #      }
-    #    ];
-    #  };
-    #};
   };
 }

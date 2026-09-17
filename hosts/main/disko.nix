@@ -50,11 +50,6 @@
             };
           };
         };
-
-        #grub = {
-        #  enable = false;
-        #  device = "nodev";
-        #};
       };
     };
   };
