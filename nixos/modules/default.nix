@@ -12,5 +12,6 @@
     ./hyprland.nix
     ./audio.nix
     ./nh.nix
+    ./zram.nix
   ];
 }
