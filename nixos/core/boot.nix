@@ -2,20 +2,22 @@
   boot = {
     loader = {
       timeout = 2;
-      #systemd-boot.enable = true;
+      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
 
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
+      #grub = {
+      #  enable = true;
+      #  device = "nodev";
+      #  efiSupport = true;
+      #};
     };
 
-    plymouth = {
-      enable = true;
-      theme = "bgrt";
-    };
+    bootspec.enable = true;
+
+    #plymouth = {
+    #  enable = true;
+    #  theme = "bgrt";
+    #};
 
     # Enable "Silent boot"
     consoleLogLevel = 3;

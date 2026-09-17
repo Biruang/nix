@@ -13,10 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     #disc partitioning
-    #disco = {
-    #  url = "github:nix-community/disko/latest";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #stylix = {
     #  url = "github:nix-community/stylix/release -26.05";
@@ -34,6 +34,7 @@
     self,
     nixpkgs,
     alejandra,
+    disko,
     home-manager,
     ...
   } @ inputs: let
@@ -64,7 +65,8 @@
             home-manager.backupFileExtension = "backup";
           }
           #stylix.nixosModules.stylix
-          #disko.nixosModules.disko
+          disko.nixosModules.disko
+          ./hosts/${hostname}/disco.nix
           #./disco.nix
           {
             environment.systemPackages = [alejandra.defaultPackage.${system}];
