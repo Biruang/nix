@@ -34,11 +34,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #stylix = {
-    #  url = "github:nix-community/stylix/release -26.05";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
     #nixos formatter
     alejandra = {
       url = "github:kamadorueda/alejandra/4.0.0";
@@ -47,7 +42,6 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     disko,
     home-manager,
@@ -56,7 +50,6 @@
     system = "x86_64-linux";
     stateVersion = "26.05";
     user = "biruang";
-    #pkgs = nixpkgs.legacyPackages.${system};
 
     hosts = [
       {hostname = "main";}
@@ -66,7 +59,7 @@
       nixpkgs.lib.nixosSystem {
         system = system;
         specialArgs = {
-          inherit inputs stateVersion hostname user;
+          inherit inputs stateVersion system hostname user;
         };
 
         modules = [
@@ -75,11 +68,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs stateVersion user;};
+            home-manager.extraSpecialArgs = {inherit inputs stateVersion system user;};
             home-manager.users.${user} = ./hosts/${hostname}/home.nix;
             home-manager.backupFileExtension = "backup";
           }
-          #stylix.nixosModules.stylix
           disko.nixosModules.disko
           ./hosts/${hostname}/disko.nix
           {

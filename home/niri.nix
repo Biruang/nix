@@ -31,6 +31,7 @@
       environment = {
         CLUTTER_BACKEND = "wayland";
         MOZ_ENABLE_WAYLAND = "1";
+        MOZ_USE_XINPUT2 = "1";
 
         #GTK4 dead keys fallback
         GTK_IM_MODULE = "simple";
@@ -130,7 +131,7 @@
         "Mod+Shift+Up".action = move-column-to-workspace-up;
         #core binds for noctalia
         "Mod+D".action.spawn = noctalia "panel-toggle launcher";
-        "Mod+S".action.spawn = noctalia "panel-toggle control-center";
+        #"Mod+S".action.spawn = noctalia "panel-toggle control-center";
         "Mod+Comma".action.spawn = noctalia "settings-toggle";
         "Alt+Tab".action.spawn = noctalia "window-switcher";
         #noctalia audio
