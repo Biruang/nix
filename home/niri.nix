@@ -124,6 +124,11 @@
         "Mod+2".action = focus-workspace "browser";
         "Mod+3".action = focus-workspace "discord";
         "Mod+4".action = focus-workspace "music";
+        #named workspaces move
+        "Mod+Shift+1".action.move-column-to-workspace = "main";
+        "Mod+Shift+2".action.move-column-to-workspace = "browser";
+        "Mod+Shift+3".action.move-column-to-workspace = "discord";
+        "Mod+Shift+4".action.move-column-to-workspace = "music";
         #move binds
         "Mod+Shift+Left".action = move-column-left;
         "Mod+Shift+Right".action = move-column-right;

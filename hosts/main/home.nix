@@ -15,6 +15,7 @@
     ../../home/alacritty.nix
     ../../home/firefox.nix
     ../../home/vscode.nix
+    ../../home/obsidian.nix
   ];
 
   #allow satan to your soul EXSPLICITLY
