@@ -22,9 +22,12 @@
     };
   };
 
-  #boot.kernelParams = [
-  #  "amdgpu.ppfeaturemask=0xffffffff"
-  #];
+  boot = {
+    initrd.kernelModules = ["amdgpu"];
+    kernelParams = ["radeon.si_support=0" "amdgpu.si_support=1"];
+  };
+
+  services.xserver.videoDrivers = ["amdgpu"];
 
   #For Rocm
   systemd.tmpfiles.rules = [

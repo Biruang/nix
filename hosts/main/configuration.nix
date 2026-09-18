@@ -18,6 +18,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    docker-compose
     home-manager
     #for Qt wayland support
     libsForQt5.qt5.qtwayland
@@ -35,6 +36,17 @@
       "${XDG_BIN_HOME}"
     ];
   };
+
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    #rootless docker
+    #  rootless = {
+    #    enable = true;
+    #    setSocketVariable = true;
+    #  };
+  };
+  users.extraUsers.${user}.extraGroups = ["docker"];
 
   services.greetd = {
     enable = true;
