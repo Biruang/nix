@@ -1,12 +1,14 @@
 {
   pkgs,
+  inputs,
   stateVersion,
+  user,
   hostname,
   ...
 }: {
   imports = [
+    inputs.noctalia-greeter.nixosModules.default
     ./hardware-configuration.nix
-    ./packages.nix
     ../../nixos/core
     ../../nixos/audio
     ../../nixos/bluetooth
@@ -15,23 +17,70 @@
     ../../nixos/drivers/power
   ];
 
-  environment.systemPackages = [pkgs.home-manager];
+  environment.systemPackages = with pkgs; [
+    home-manager
+    #for Qt wayland support
+    libsForQt5.qt5.qtwayland
+    qt6Packages.qtwayland
+    #LSP for nix
+    nixd
+    #secure secrets management
+    #secretspec
+  ];
+
   environment.sessionVariables = rec {
     TERMINAL = "alacritty";
     XDG_BIN_HOME = "$HOME/.local/bin";
-    # Optional, hint Electron apps to use Wayland
-    NIXOS_OZONE_WL = "1";
-    # Hint for QT apps to use wayland with xcd fallback
-    QT_QPA_PLATFORM = "wayland;xcb";
     PATH = [
       "${XDG_BIN_HOME}"
     ];
   };
 
-  programs.uwsm.enable = true;
-  programs.hyprland = {
+  services.greetd = {
     enable = true;
-    withUWSM = true;
+    settings = {
+      default_session = {
+        command = "niri-session";
+        user = user;
+      };
+    };
+  };
+
+  services.displayManager.noctalia-greeter = {
+    enable = true;
+    #passwordless-sync-users = ["${user}"];
+    settings = {
+      cursor = {
+        theme = "Bibata-Modern-Ice";
+        size = 24;
+        path = "${pkgs.bibata-cursors}/share/icons";
+      };
+    };
+  };
+  #greeter -> noctalia sync
+  #security.polkit = {
+  # enable = true;
+  # extraConfig = ''
+  #    polkit.addRule(function(action, subject) {
+  #     var allowedUsers = ["alice"];
+  #
+  #      if (action.id == "org.noctalia.greeter.sync-appearance" &&
+  #         action.lookup("program") == "${pkgs.noctalia-greeter}/bin/noctalia-greeter-apply-appearance" &&
+  #         action.lookup("user") == "root" &&
+  #          subject.local && subject.active &&
+  #          allowedUsers.indexOf(subject.user) >= 0) {
+  #        return polkit.Result.YES;
+  #     }
+  #    });
+  #   '';
+  # };
+
+  #portals for niri
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config.common.default = "*";
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   networking.hostName = hostname;

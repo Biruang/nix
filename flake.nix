@@ -18,6 +18,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    #wayland compositor
+    niri = {
+      url = "github:epireyn/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #wayland shell
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #noctalia greeter
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #stylix = {
     #  url = "github:nix-community/stylix/release -26.05";
     #  inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +49,6 @@
   outputs = {
     self,
     nixpkgs,
-    alejandra,
     disko,
     home-manager,
     ...
@@ -68,7 +83,7 @@
           disko.nixosModules.disko
           ./hosts/${hostname}/disko.nix
           {
-            environment.systemPackages = [alejandra.defaultPackage.${system}];
+            environment.systemPackages = [inputs.alejandra.defaultPackage.${system}];
           }
         ];
       };

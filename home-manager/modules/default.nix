@@ -2,12 +2,12 @@
   imports = [
     ./zsh.nix
     ./git.nix
-    ./hyprland
+    #./hyprland
     ./alacritty.nix
-    ./rofi.nix
+    #./rofi.nix
     #./stylix.nix
     #./waybar
-    ./swaync.nix
-    ./quickshell
+    #./swaync.nix
+    #./quickshell
   ];
 }

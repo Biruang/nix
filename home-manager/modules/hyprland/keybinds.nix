@@ -37,12 +37,12 @@
             (lib.generators.mkLuaInline "hl.dsp.window.float({ action = 'toggle' })")
           ];
         }
-        {
-          _args = [
-            (lib.generators.mkLuaInline "mainMod .. \" + D\"")
-            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(menu .. \" -show drun\")")
-          ];
-        }
+        #{
+        #  _args = [
+        #    (lib.generators.mkLuaInline "mainMod .. \" + D\"")
+        #    (lib.generators.mkLuaInline "hl.dsp.exec_cmd(menu .. \" -show drun\")")
+        #  ];
+        #}
         {
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + P\"")
@@ -108,6 +108,31 @@
             {mouse = true;}
           ];
         }
+        #noctalia
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + D\"")
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"panel-toggle launcher\")")
+          ];
+        }
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + S\"")
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"panel-toggle control-center\")")
+          ];
+        }
+        {
+          _args = [
+            (lib.generators.mkLuaInline "mainMod .. \" + comma\"")
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"settings-toggle\")")
+          ];
+        }
+        {
+          _args = [
+            "ALT + Tab"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"window-switcher\")")
+          ];
+        }
         #switch workspace with mainMod + [0-9]
         {
           _args = [
@@ -132,6 +157,37 @@
           _args = [
             (lib.generators.mkLuaInline "mainMod .. \" + SHIFT\" .. \" + 2\"")
             (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = 1 })")
+          ];
+        }
+        #media keys
+        {
+          _args = [
+            "XF86AudioRaiseVolume"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"volume-up\")")
+          ];
+        }
+        {
+          _args = [
+            "XF86AudioLowerVolume"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"volume-down\")")
+          ];
+        }
+        {
+          _args = [
+            "XF86AudioMute"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"volume-mute\")")
+          ];
+        }
+        {
+          _args = [
+            "XF86MonBrightnessUp"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"brightness-up\")")
+          ];
+        }
+        {
+          _args = [
+            "XF86MonBrightnessDown"
+            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(ipc .. \"brightness-down\")")
           ];
         }
       ];

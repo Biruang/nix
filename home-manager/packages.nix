@@ -3,9 +3,9 @@
     telegram-desktop
     vscode
     firefox
-    pavucontrol
+    #pavucontrol
 
     #utils
-    brightnessctl
+    #brightnessctl
   ];
 }

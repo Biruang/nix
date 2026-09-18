@@ -37,12 +37,66 @@
         }
       ];
 
-      #Ignore maximize requests from all apps.
-      window_rule = {
-        name = "suppress-maximize-events";
-        match = {class = ".*";};
-        suppress_event = "maximize";
-      };
+      window_rule = [
+        #Ignore maximize requests from all apps.
+        {
+          name = "suppress-maximize-events";
+          match = {class = ".*";};
+          suppress_event = "maximize";
+        }
+        #Noctalia settings window
+        {
+          match = {class = "dev.noctalia.Noctalia";};
+          float = true;
+          size = [1080 920];
+        }
+      ];
+
+      workspace_rule = [
+        {
+          workspace = "1";
+          monitor = "DP-1";
+          persistent = true;
+          default_name = "web";
+        }
+        {
+          workspace = "2";
+          monitor = "DP-1";
+          persistent = true;
+          default_name = "code";
+        }
+        {
+          workspace = "3";
+          monitor = "DP-1";
+          persistent = true;
+          default_name = "chat";
+        }
+        {
+          workspace = "4";
+          monitor = "DP-1";
+          persistent = true;
+          default_name = "game";
+        }
+        {
+          workspace = "5";
+          monitor = "DP-1";
+          persistent = true;
+          default_name = "design";
+        }
+      ];
+
+      layer_rule = [
+        {
+          name = "noctalia";
+          match = {
+            namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$";
+          };
+          no_anim = true;
+          ignore_alpha = 0.5;
+          blur = true;
+          blur_popups = true;
+        }
+      ];
     };
   };
 }

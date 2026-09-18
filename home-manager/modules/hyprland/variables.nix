@@ -10,6 +10,9 @@
       terminal = {
         _var = "alacritty";
       };
+      ipc = {
+        _var = "noctalia msg ";
+      };
     };
   };
 }
