@@ -87,6 +87,16 @@
   #   '';
   # };
 
+  #drive health
+  services.smartd = {
+    enable = true;
+    devices = [
+      {
+        device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
+      }
+    ];
+  };
+
   #portals for niri
   xdg.portal = {
     enable = true;
