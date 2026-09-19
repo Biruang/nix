@@ -13,6 +13,14 @@
       self.nixosModules.niri
     ];
 
+    environment.systemPackages = with pkgs; [
+      mesa
+      rocmPackages.rocm-smi
+      rocmPackages.rocminfo
+      vulkan-tools
+      upower
+    ];
+
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nixpkgs.config.allowUnfree = true;
 
@@ -38,14 +46,6 @@
 
     security.rtkit.enable = true;
     #nixpkgs.config.pulseaudio = true;
-
-    environment.systemPackages = with pkgs; [
-      mesa
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-      vulkan-tools
-      upower
-    ];
 
     services = {
       upower.enable = true;
@@ -93,6 +93,9 @@
         };
       };
     };
+    home-manager.users = {
+      "biruang" = self.homeModules.biruangModule;
+    };
 
     time.timeZone = "Asia/Tomsk";
     # Select internationalisation properties.
@@ -126,7 +129,7 @@
 
     programs.firefox.enable = true;
     programs.git.enable = true;
-    programs.vscode.enable = true;
+    #programs.vscode.enable = true;
     programs.amnezia-vpn.enable = true;
 
     # This option defines the first version of NixOS you have installed on this particular machine,

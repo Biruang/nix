@@ -9,6 +9,7 @@ in {
     system = system;
     modules = [
       self.nixosModules.mainConfiguration
+      self.nixosModules.myHomeManager
       {
         environment.systemPackages = [inputs.alejandra.defaultPackage.${system}];
       }
