@@ -36,7 +36,19 @@
       zsh.enable = true;
     };
 
-    nix.settings.experimental-features = ["nix-command" "flakes"];
+    nix.settings = {
+      experimental-features = ["nix-command" "flakes"];
+      substituters = [
+        "https://cache.nixos.org"
+        #random binary cache from some dude. secure asf
+        "https://niri-epireyn.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
+      ];
+    };
+
     #allow satan to your soul EXSPLICITLY
     nixpkgs.config = {
       allowUnfreePredicate = pkg:
@@ -94,7 +106,7 @@
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
-        #pulse.enable = true;
+        pulse.enable = true;
       };
       xserver.videoDrivers = ["amdgpu"];
     };

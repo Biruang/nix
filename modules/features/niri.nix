@@ -15,13 +15,13 @@
         spawn-at-startup = [
           {argv = ["noctalia"];}
         ];
+        #to omit client-side windows decorations
+        prefer-no-csd = true;
 
         #skip annoying overlay
         hotkey-overlay = {
           skip-at-startup = true;
         };
-        #to omit client-side windows decorations
-        prefer-no-csd = true;
 
         input = {
           keyboard = {
@@ -139,6 +139,9 @@
           "Mod+Shift+Right".action = move-column-right;
           "Mod+Shift+Down".action = move-column-to-workspace-down;
           "Mod+Shift+Up".action = move-column-to-workspace-up;
+          #screenshots
+          "Mod+Print".action.screenshot = {};
+          "Mod+Shift+Print".action.screenshot-screen = {};
           #core binds for noctalia
           "Mod+D".action.spawn = noctalia "panel-toggle launcher";
           #"Mod+S".action.spawn = noctalia "panel-toggle control-center";
