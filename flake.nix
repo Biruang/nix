@@ -1,5 +1,5 @@
 {
-description = "Nixos config flake";
+  description = "Nixos config flake";
 
   #some day I will leake token again because im lazy fuck
   nixConfig = {
@@ -13,6 +13,12 @@ description = "Nixos config flake";
     import-tree.url = "github:vic/import-tree";
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+
+    #nixos formatter
+    alejandra = {
+      url = "github:kamadorueda/alejandra/4.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
