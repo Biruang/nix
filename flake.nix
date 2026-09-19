@@ -1,4 +1,11 @@
 {
+description = "Nixos config flake";
+
+  #some day I will leake token again because im lazy fuck
+  nixConfig = {
+    access-tokens = ["github.com="];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 

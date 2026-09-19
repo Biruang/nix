@@ -3,55 +3,44 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.mainHardware = {
-    config,
-    lib,
-    pkgs,
-    modulesPath,
-    ...
-  }: {
-    imports = [
-      (modulesPath + "/installer/scan/not-detected.nix")
+  flake.nixosModules.mainHardware = { config, lib, pkgs, modulesPath, ... }:{
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-    boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid"];
-    boot.initrd.kernelModules = [];
-    boot.kernelModules = ["kvm-amd"];
-    boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/5d753022-74c2-4747-ba3b-b1b959029549";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/a3178120-9550-418c-aff0-7c85eb40b7cf";
       fsType = "btrfs";
-      options = ["subvol=rootfs"];
     };
 
-    fileSystems."/nix" = {
-      device = "/dev/disk/by-uuid/5d753022-74c2-4747-ba3b-b1b959029549";
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/a3178120-9550-418c-aff0-7c85eb40b7cf";
       fsType = "btrfs";
-      options = ["subvol=nix"];
+      options = [ "subvol=home" ];
     };
 
-    fileSystems."/home" = {
-      device = "/dev/disk/by-uuid/5d753022-74c2-4747-ba3b-b1b959029549";
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/a3178120-9550-418c-aff0-7c85eb40b7cf";
       fsType = "btrfs";
-      options = ["subvol=home"];
+      options = [ "subvol=nix" ];
     };
 
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/2D08-EEDC";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/2262-4651";
       fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
+      options = [ "fmask=0077" "dmask=0077" ];
     };
 
-    fileSystems."/var/lib/docker/btrfs" = {
-      device = "/home/rootfs/var/lib/docker/btrfs";
-      fsType = "none";
-      options = ["bind"];
-    };
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/897b8345-3416-4460-af05-ef7ddcf27f48"; }
+    ];
 
-    swapDevices = [];
-
-    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  };
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+};
 }

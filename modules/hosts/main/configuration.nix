@@ -11,156 +11,145 @@
     imports = [
       self.nixosModules.mainHardware
       self.nixosModules.niri
-
-      #old and stinky
-      #../../../nixos/core
-      #../../../nixos/audio
-      #../../../nixos/bluetooth
-      #../../../nixos/vpn
-      #../../../nixos/drivers/amd
-      #../../../nixos/drivers/power
     ];
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
+nixpkgs.config.allowUnfree = true;
 
-    environment.systemPackages = with pkgs; [
-      firefox
-      vscode
-      #music service from satan(tm)
-      yandex-music
-      telegram-desktop
+  boot = {
+initrd.kernelModules = ["amdgpu"];
+    kernelParams = ["radeon.si_support=0" "amdgpu.si_support=1"];
+    loader = {
+systemd-boot.enable = true;
+efi.canTouchEfiVariables = true;
+  };
+  };
 
-      mesa
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-      vulkan-tools
-    ];
 
-    boot = {
-      loader = {
-        #timeout = 2;
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
+  #For Rocm
+  systemd.tmpfiles.rules = [
+    "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
+  ];
+  
 
-        #grub = {
-        #  enable = true;
-        #  device = "nodev";
-        #  efiSupport = true;
-        #};
-      };
+networking = {
+    networkmanager.enable = true;
+    wireless.enable = true;
+    hostName = "main";
+  };
 
-      initrd.kernelModules = ["amdgpu"];
-      kernelParams = ["radeon.si_support=0" "amdgpu.si_support=1"];
-    };
+   security.rtkit.enable = true;
+  #nixpkgs.config.pulseaudio = true;
 
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
+  environment.systemPackages = with pkgs; [
+    mesa
+    rocmPackages.rocm-smi
+    rocmPackages.rocminfo
+    vulkan-tools
+    upower
+  ];
 
-    security.rtkit.enable = true;
-    nixpkgs.config = {
-      pulseaudio = true;
+   services = {
+    upower.enable = true;
+    power-profiles-daemon.enable = true;
+    pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    #pulse.enable = true;
+  };
+  xserver.videoDrivers = ["amdgpu"];
+  };
 
-      allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "vscode"
-          "yandex-music"
-        ];
-    };
-
-    services.pipewire = {
+hardware = {
+  graphics = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        libva-vdpau-driver
+        libvdpau-va-gl
+        rocmPackages.clr.icd
+      ];
     };
-
-    networking = {
-      networkmanager.enable = true;
-      wireless.enable = true;
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true;
     };
+    bluetooth = {
+enable = true;
+powerOnBoot = true;
+};
+};
 
-    programs.amnezia-vpn = {
-      enable = true;
-    };
-
-    time.timeZone = "Asia/Tomsk";
-
-    i18n = {
-      defaultLocale = "en_US.UTF-8";
-
-      extraLocaleSettings = {
-        LC_ADDRESS = "ru_RU.UTF-8";
-        LC_IDENTIFICATION = "ru_RU.UTF-8";
-        LC_MEASUREMENT = "ru_RU.UTF-8";
-        LC_MONETARY = "ru_RU.UTF-8";
-        LC_NAME = "ru_RU.UTF-8";
-        LC_NUMERIC = "ru_RU.UTF-8";
-        LC_PAPER = "ru_RU.UTF-8";
-        LC_TELEPHONE = "ru_RU.UTF-8";
-        LC_TIME = "ru_RU.UTF-8";
-      };
-    };
-
-    services.xserver.xkb = {
-      layout = "us,ru";
-      variant = ",";
-      options = "grp:alt_shift_toggle";
-    };
-    console.useXkbConfig = true;
-
-    programs.zsh.enable = true;
-
-    programs.nh = {
-      enable = true;
-      clean.enable = true;
-      clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/biruang/nix";
-    };
-
+programs.zsh.enable = true;
+users = {
+    defaultUserShell = pkgs.zsh;
     users = {
-      #defaultUserShell = pkgs.zsh;
-      users = {
-        biruang = {
-          description = "default user";
-          isNormalUser = true;
-          initialPassword = "111";
-          #shell = pkgs.zsh;
-          extraGroups = ["wheel" "networkmanager"];
-        };
-      };
-    };
-
-    zramSwap = {
-      enable = true;
-      algorithm = "lz4";
-      memoryPercent = 100;
-      priority = 999;
-    };
-
-    hardware = {
-      graphics = {
-        enable = true;
-        enable32Bit = true;
-        extraPackages = with pkgs; [
-          libva-vdpau-driver
-          libvdpau-va-gl
-          rocmPackages.clr.icd
-        ];
-      };
-      amdgpu = {
-        initrd.enable = true;
-        opencl.enable = true;
-      };
-    };
-
-    services.xserver.videoDrivers = ["amdgpu"];
-
-    #For Rocm
-    systemd.tmpfiles.rules = [
-      "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
+      "biruang" = {
+        isNormalUser = true;
+    description = "biruang";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    #  thunderbird
     ];
+      };
+    };
+  };
 
-    networking.hostName = "main";
-    system.stateVersion = "26.05";
+time.timeZone = "Asia/Tomsk";
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+	  i18n.extraLocaleSettings = {
+	    LC_ADDRESS = "ru_RU.UTF-8";
+	    LC_IDENTIFICATION = "ru_RU.UTF-8";
+	    LC_MEASUREMENT = "ru_RU.UTF-8";
+	    LC_MONETARY = "ru_RU.UTF-8";
+	    LC_NAME = "ru_RU.UTF-8";
+	    LC_NUMERIC = "ru_RU.UTF-8";
+	    LC_PAPER = "ru_RU.UTF-8";
+	    LC_TELEPHONE = "ru_RU.UTF-8";
+	    LC_TIME = "ru_RU.UTF-8";
+	  };
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/biruang/nix";
+  };
+
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    memoryPercent = 100;
+    priority = 999;
+  };
+
+
+ programs.firefox.enable = true;
+  programs.git.enable = true;
+ programs.vscode.enable = true;
+ programs.amnezia-vpn.enable = true;
+
+
+# This option defines the first version of NixOS you have installed on this particular machine,
+  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  #
+  # Most users should NEVER change this value after the initial install, for any reason,
+  # even if you've upgraded your system to a new NixOS release.
+  #
+  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
+  #
+  # This value being lower than the current NixOS release does NOT mean your system is
+  # out of date, out of support, or vulnerable.
+  #
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "26.05"; # Did you read the comment?
   };
 }
