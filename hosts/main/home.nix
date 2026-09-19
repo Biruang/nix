@@ -29,9 +29,6 @@
     stateVersion = stateVersion;
     keyboard = null;
     packages = with pkgs; [
-      #music service from satan(tm)
-      yandex-music
-      telegram-desktop
     ];
   };
 }

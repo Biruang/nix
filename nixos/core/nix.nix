@@ -15,7 +15,7 @@
       ];
     };
     #for correct align input path with flake
-    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    #nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     optimise.automatic = true;
   };
 }

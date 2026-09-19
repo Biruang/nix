@@ -12,7 +12,7 @@
       #};
     };
 
-    bootspec.enable = true;
+    #bootspec.enable = true;
 
     #plymouth = {
     #  enable = true;

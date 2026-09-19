@@ -3,6 +3,17 @@
   inputs,
   ...
 }: {
+  flake.nixosModules.niri = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    programs.niri = {
+      enable = true;
+      package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+    };
+  };
+
   perSystem = {
     pkgs,
     lib,
@@ -13,13 +24,13 @@
       inherit pkgs;
 
       settings = {
-        #spawn-at-startup = [
-        #  (lib.getExe self'.packages.myNoctalia)
-        #];
+        spawn-at-startup = [
+          (lib.getExe self'.packages.myNoctalia)
+        ];
 
         input = {
           keyboard = {
-            xkb.layout = "us,ua";
+            xkb.layout = "us,ru";
           };
         };
 
@@ -29,8 +40,8 @@
 
         binds = {
           "Mod+Q".spawn-sh = lib.getExe pkgs.kitty;
-          "Mod+C".close-window = null;
-          #"Mod+D".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
+          "Mod+C".close-window = [];
+          "Mod+D".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
         };
       };
     };

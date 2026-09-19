@@ -8,7 +8,7 @@
     ./locale.nix
     ./nix.nix
     ./zram.nix
-    ./user.nix
-    ./nh.nix
+    #./user.nix
+    #./nh.nix
   ];
 }
