@@ -10,19 +10,41 @@
   }: {
     imports = [
       self.nixosModules.mainHardware
-      self.nixosModules.niri
     ];
 
-    environment.systemPackages = with pkgs; [
-      mesa
-      rocmPackages.rocm-smi
-      rocmPackages.rocminfo
-      vulkan-tools
-      upower
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        mesa
+        rocmPackages.rocm-smi
+        rocmPackages.rocminfo
+        vulkan-tools
+        upower
+        #LSP for nix
+        nixd
+      ];
+      #environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
+    };
+
+    programs = {
+      nh = {
+        enable = true;
+        clean.enable = true;
+        clean.extraArgs = "--keep-since 4d --keep 3";
+        flake = "/home/biruang/nix";
+      };
+      amnezia-vpn.enable = true;
+      zsh.enable = true;
+    };
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
-    nixpkgs.config.allowUnfree = true;
+    #allow satan to your soul EXSPLICITLY
+    nixpkgs.config = {
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "vscode"
+          "yandex-music"
+        ];
+    };
 
     boot = {
       initrd.kernelModules = ["amdgpu"];
@@ -33,10 +55,28 @@
       };
     };
 
+    #portals for niri
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      config.common.default = "*";
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    };
+
     #For Rocm
     systemd.tmpfiles.rules = [
       "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
     ];
+
+    #health check
+    services.smartd = {
+      enable = true;
+      devices = [
+        {
+          device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
+        }
+      ];
+    };
 
     networking = {
       networkmanager.enable = true;
@@ -79,7 +119,6 @@
       };
     };
 
-    programs.zsh.enable = true;
     users = {
       defaultUserShell = pkgs.zsh;
       users = {
@@ -113,24 +152,12 @@
       LC_TIME = "ru_RU.UTF-8";
     };
 
-    programs.nh = {
-      enable = true;
-      clean.enable = true;
-      clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/biruang/nix";
-    };
-
     zramSwap = {
       enable = true;
       algorithm = "lz4";
       memoryPercent = 100;
       priority = 999;
     };
-
-    programs.firefox.enable = true;
-    programs.git.enable = true;
-    #programs.vscode.enable = true;
-    programs.amnezia-vpn.enable = true;
 
     # This option defines the first version of NixOS you have installed on this particular machine,
     # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

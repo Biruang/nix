@@ -18,6 +18,16 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
+    #wayland compositor
+    niri = {
+      url = "github:epireyn/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #wayland shell
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #nixos formatter
     alejandra = {
       url = "github:kamadorueda/alejandra/4.0.0";
