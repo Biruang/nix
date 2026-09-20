@@ -19,9 +19,6 @@
     lib,
     ...
   }: {
-    #programs.bash.enable = true;
-    #programs.bash.shellAliases.ll = "ls -l";
-
     imports = [
       inputs.noctalia.homeModules.default
       inputs.niri.homeModules.niri
@@ -31,8 +28,6 @@
       self.homeModules.myZsh
       self.homeModules.myNiri
       self.homeModules.myNoctalia
-      #  ../../home/firefox.nix
-      #  ../../home/vscode.nix
     ];
 
     home = {

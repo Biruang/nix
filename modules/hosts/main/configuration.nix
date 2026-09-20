@@ -6,6 +6,7 @@
   flake.nixosModules.mainConfiguration = {
     pkgs,
     lib,
+    config,
     ...
   }: {
     imports = [
@@ -34,6 +35,7 @@
       };
       amnezia-vpn.enable = true;
       zsh.enable = true;
+      niri.enable = true;
     };
 
     nix.settings = {
@@ -92,23 +94,6 @@
     security.rtkit.enable = true;
     #nixpkgs.config.pulseaudio = true;
 
-    #programs.noctalia-greeter = {
-    #  enable = true;
-    #  settings = {
-    #    session.default = "niri";
-    #    user.default = "biruang";
-    #    cursor.size = 24;
-    #    #keyboard.layout = "us";
-    #    appearance = {
-    #      scheme = "Synced";
-    #      password_style = "default";
-    #      hide_logo = true;
-    #      scheme_selector_position = "hidden";
-    #      power_buttons_position = "bottom-right";
-    #    };
-    #  };
-    #};
-
     services = {
       upower.enable = true;
       power-profiles-daemon.enable = true;
@@ -119,23 +104,23 @@
         pulse.enable = true;
       };
       xserver.videoDrivers = ["amdgpu"];
-      #displayManager.noctalia-greeter = {
-      #  enable = true;
-      #  settings = {
-      #    session.default = "niri";
-      #    user.default = "biruang";
-      #    cursor.size = 24;
-      #    #keyboard.layout = "us";
-      #    appearance = {
-      #      scheme = "Synced";
-      #      password_style = "default";
-      #      hide_logo = true;
-      #      scheme_selector_position = "hidden";
-      #      power_buttons_position = "bottom-right";
-      #    };
-      #  };
-      #  passwordless-sync-users = ["biruang"];
-      #};
+      displayManager.noctalia-greeter = {
+        enable = true;
+        settings = {
+          session.default = "niri";
+          user.default = "biruang";
+          cursor.size = 24;
+          #keyboard.layout = "us";
+          appearance = {
+            scheme = "Synced";
+            password_style = "default";
+            hide_logo = true;
+            scheme_selector_position = "hidden";
+            power_buttons_position = "bottom-right";
+          };
+        };
+        passwordless-sync-users = ["biruang"];
+      };
 
       #greetd = {
       #  enable = true;
