@@ -15,8 +15,8 @@
     environment = {
       systemPackages = with pkgs; [
         mesa
-        rocmPackages.rocm-smi
-        rocmPackages.rocminfo
+        #rocmPackages.rocm-smi
+        #rocmPackages.rocminfo
         vulkan-tools
         upower
         #LSP for nix
@@ -47,6 +47,7 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
       ];
+      auto-optimise-store = true;
     };
 
     #allow satan to your soul EXSPLICITLY
@@ -72,23 +73,15 @@
       enable = true;
       xdgOpenUsePortal = true;
       config.common.default = "*";
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
 
     #For Rocm
     systemd.tmpfiles.rules = [
       "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
     ];
-
-    #health check
-    services.smartd = {
-      enable = true;
-      devices = [
-        {
-          device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
-        }
-      ];
-    };
 
     networking = {
       networkmanager.enable = true;
@@ -98,6 +91,23 @@
 
     security.rtkit.enable = true;
     #nixpkgs.config.pulseaudio = true;
+
+    #programs.noctalia-greeter = {
+    #  enable = true;
+    #  settings = {
+    #    session.default = "niri";
+    #    user.default = "biruang";
+    #    cursor.size = 24;
+    #    #keyboard.layout = "us";
+    #    appearance = {
+    #      scheme = "Synced";
+    #      password_style = "default";
+    #      hide_logo = true;
+    #      scheme_selector_position = "hidden";
+    #      power_buttons_position = "bottom-right";
+    #    };
+    #  };
+    #};
 
     services = {
       upower.enable = true;
@@ -109,6 +119,43 @@
         pulse.enable = true;
       };
       xserver.videoDrivers = ["amdgpu"];
+      #displayManager.noctalia-greeter = {
+      #  enable = true;
+      #  settings = {
+      #    session.default = "niri";
+      #    user.default = "biruang";
+      #    cursor.size = 24;
+      #    #keyboard.layout = "us";
+      #    appearance = {
+      #      scheme = "Synced";
+      #      password_style = "default";
+      #      hide_logo = true;
+      #      scheme_selector_position = "hidden";
+      #      power_buttons_position = "bottom-right";
+      #    };
+      #  };
+      #  passwordless-sync-users = ["biruang"];
+      #};
+
+      #greetd = {
+      #  enable = true;
+      #  settings = {
+      #    default_session = {
+      #      command = "niri-session";
+      #      user = "biruang";
+      #    };
+      #  };
+      #};
+
+      #health check
+      smartd = {
+        enable = true;
+        devices = [
+          {
+            device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
+          }
+        ];
+      };
     };
 
     hardware = {

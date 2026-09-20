@@ -38,8 +38,9 @@
     home = {
       username = "biruang";
       homeDirectory = "/home/biruang";
-      packages = [
-        pkgs.yandex-music
+      packages = with pkgs; [
+        xwayland-satellite # xwayland support
+        yandex-music
       ];
       stateVersion = "26.05";
     };

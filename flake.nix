@@ -18,6 +18,11 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
+    #greeter
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #wayland compositor
     niri = {
       url = "github:epireyn/niri-flake";
