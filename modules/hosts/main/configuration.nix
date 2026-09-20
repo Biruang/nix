@@ -11,6 +11,7 @@
   }: {
     imports = [
       self.nixosModules.mainHardware
+      self.nixosModules.myDocker
     ];
 
     environment = {
@@ -20,11 +21,15 @@
         #rocmPackages.rocminfo
         vulkan-tools
         upower
+        ddcutil
         #LSP for nix
         nixd
       ];
-      #environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
     };
+
+    fonts.packages = [
+      pkgs.nerd-fonts._0xproto
+    ];
 
     programs = {
       nh = {
@@ -58,6 +63,7 @@
         builtins.elem (lib.getName pkg) [
           "vscode"
           "yandex-music"
+          "telegram-desktop"
         ];
     };
 
@@ -92,8 +98,6 @@
     };
 
     security.rtkit.enable = true;
-    #nixpkgs.config.pulseaudio = true;
-
     services = {
       upower.enable = true;
       power-profiles-daemon.enable = true;
@@ -110,7 +114,6 @@
           session.default = "niri";
           user.default = "biruang";
           cursor.size = 24;
-          #keyboard.layout = "us";
           appearance = {
             scheme = "Synced";
             password_style = "default";
@@ -121,16 +124,6 @@
         };
         passwordless-sync-users = ["biruang"];
       };
-
-      #greetd = {
-      #  enable = true;
-      #  settings = {
-      #    default_session = {
-      #      command = "niri-session";
-      #      user = "biruang";
-      #    };
-      #  };
-      #};
 
       #health check
       smartd = {
@@ -161,6 +154,7 @@
         enable = true;
         powerOnBoot = true;
       };
+      i2c.enable = true;
     };
 
     users = {

@@ -3,11 +3,7 @@
   inputs,
   ...
 }: {
-  flake.homeModules.myFirefox = {
-    pkgs,
-    user,
-    ...
-  }: {
+  flake.homeModules.myFirefox = {pkgs, ...}: {
     programs.firefox = {
       enable = true;
 

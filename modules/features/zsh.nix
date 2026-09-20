@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.homeModules.myZsh = {config, ...}: {
+  flake.homeModules.myZsh = {
+    config,
+    pkgs,
+    ...
+  }: {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -14,15 +18,12 @@
       history.path = "${config.xdg.dataHome}/zsh/history";
 
       initContent = ''
-        # Start UWSM
-        #if uwsm check may-start > /dev/null && uwsm select; then
-        #  exec systemd-cat -t uwsm_start uwsm start default
-        #fi
-
-        # Start with USM bypassing shell select
-        #if uwsm check may-start; then
-        #  exec uwsm start hyprland.desktop
-        #fi
+        PROMPT=" ◉ %U%F{magenta}%n%f%u@%U%F{blue}%m%f%u:%F{yellow}%~%f
+         %F{green}→%f "
+        RPROMPT="%F{red}▂%f%F{yellow}▄%f%F{green}▆%f%F{cyan}█%f%F{blue}▆%f%F{magenta}▄%f%F{white}▂%f"
+        [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+        bindkey '^P' history-beginning-search-backward
+        bindkey '^N' history-beginning-search-forward
       '';
     };
   };

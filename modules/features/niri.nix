@@ -114,7 +114,7 @@
             ]
             ++ (pkgs.lib.splitString " " cmd);
         in {
-          "Mod+Q".action.spawn-sh = "alacritty";
+          "Mod+Q".action.spawn-sh = "ghostty";
           "Mod+C".action = close-window;
           "Mod+R".action = switch-preset-column-width;
           #focus binds
@@ -140,8 +140,8 @@
           "Mod+Shift+Down".action = move-column-to-workspace-down;
           "Mod+Shift+Up".action = move-column-to-workspace-up;
           #screenshots
-          #"Mod+X".action.screenshot = {};
-          #"Mod+Shift+X".action.screenshot-screen = {};
+          "Mod+X".action.screenshot = {};
+          "Mod+Shift+X".action.screenshot-screen = {};
           #core binds for noctalia
           "Mod+D".action.spawn = noctalia "panel-toggle launcher";
           #"Mod+S".action.spawn = noctalia "panel-toggle control-center";

@@ -3,17 +3,6 @@
   inputs,
   ...
 }: {
-  #flake.homeConfigurations.biruang = inputs.home-manager.lib.homeManagerConfiguration {
-  #  pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
-  #  modules = [
-  #    self.homeModules.biruangModule
-  #    {
-  #      home.username = "biruang";
-  #      home.homeDirectory = "/home/biruang";
-  #    }
-  #  ];
-  #};
-
   flake.homeModules.biruangModule = {
     pkgs,
     lib,
@@ -28,6 +17,7 @@
       self.homeModules.myZsh
       self.homeModules.myNiri
       self.homeModules.myNoctalia
+      self.homeModules.myGhostty
     ];
 
     home = {
@@ -36,6 +26,7 @@
       packages = with pkgs; [
         xwayland-satellite # xwayland support
         yandex-music
+        telegram-desktop
       ];
       stateVersion = "26.05";
     };
