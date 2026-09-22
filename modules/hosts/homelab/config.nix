@@ -22,9 +22,9 @@
       ];
     };
 
-    #fonts.packages = [
-    #  pkgs.nerd-fonts._0xproto
-    #];
+    fonts.packages = [
+      pkgs.nerd-fonts._0xproto
+    ];
 
     programs = {
       nh = {
