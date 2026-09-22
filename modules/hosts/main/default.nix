@@ -9,7 +9,6 @@ in {
     system = system;
     modules = [
       self.nixosModules.mainConfiguration
-      self.nixosModules.myHomeManager
       inputs.noctalia-greeter.nixosModules.default
       {
         environment.systemPackages = [inputs.alejandra.defaultPackage.${system}];

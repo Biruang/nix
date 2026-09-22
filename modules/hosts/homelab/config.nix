@@ -10,6 +10,7 @@
     ...
   }: {
     imports = [
+      self.nixosModules.myHomeManager
       self.nixosModules.homelabHardware
     ];
 
