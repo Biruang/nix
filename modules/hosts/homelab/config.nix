@@ -3,34 +3,28 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.mainConfiguration = {
+  flake.nixosModules.homelabConfig = {
     pkgs,
     lib,
     config,
     ...
   }: {
     imports = [
-      self.nixosModules.mainHardware
-      self.nixosModules.myDocker
-      self.nixosModules.openrgb
+      self.nixosModules.homelabHardware
     ];
 
     environment = {
       systemPackages = with pkgs; [
-        mesa
-        #rocmPackages.rocm-smi
-        #rocmPackages.rocminfo
-        vulkan-tools
-        upower
-        ddcutil
+        #mesa
+
         #LSP for nix
-        nixd
+        #nixd
       ];
     };
 
-    fonts.packages = [
-      pkgs.nerd-fonts._0xproto
-    ];
+    #fonts.packages = [
+    #  pkgs.nerd-fonts._0xproto
+    #];
 
     programs = {
       nh = {
@@ -39,63 +33,45 @@
         clean.extraArgs = "--keep-since 4d --keep 3";
         flake = "/home/biruang/nix";
       };
-      amnezia-vpn.enable = true;
+      #amnezia-vpn.enable = true;
       zsh.enable = true;
-      niri.enable = true;
+      #niri.enable = true;
     };
 
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       substituters = [
         "https://cache.nixos.org"
-        #random binary cache from some dude. secure asf
-        "https://niri-epireyn.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
       ];
       auto-optimise-store = true;
     };
 
     #allow satan to your soul EXSPLICITLY
-    nixpkgs.config = {
-      allowUnfreePredicate = pkg:
-        builtins.elem (lib.getName pkg) [
-          "vscode"
-          "yandex-music"
-          "telegram-desktop"
-        ];
-    };
+    #nixpkgs.config = {
+    #  allowUnfreePredicate = pkg:
+    #    builtins.elem (lib.getName pkg) [
+    #      "vscode"
+    #      "yandex-music"
+    #      "telegram-desktop"
+    #    ];
+    #};
 
     boot = {
-      initrd.kernelModules = ["amdgpu"];
-      kernelParams = ["radeon.si_support=0" "amdgpu.si_support=1"];
+      #initrd.kernelModules = ["amdgpu"];
+      #kernelParams = ["radeon.si_support=0" "amdgpu.si_support=1"];
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
     };
 
-    #portals for niri
-    xdg.portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-      config.common.default = "*";
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-    };
-
-    #For Rocm
-    systemd.tmpfiles.rules = [
-      "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
-    ];
-
     networking = {
       networkmanager.enable = true;
       wireless.enable = true;
-      hostName = "main";
+      hostName = "homelab";
     };
 
     security.rtkit.enable = true;
@@ -103,30 +79,6 @@
       upower.enable = true;
       power-profiles-daemon.enable = true;
       openssh.enable = true;
-
-      pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-      };
-      xserver.videoDrivers = ["amdgpu"];
-      displayManager.noctalia-greeter = {
-        enable = true;
-        settings = {
-          session.default = "niri";
-          user.default = "biruang";
-          cursor.size = 24;
-          appearance = {
-            scheme = "Synced";
-            password_style = "default";
-            hide_logo = true;
-            scheme_selector_position = "hidden";
-            power_buttons_position = "bottom-right";
-          };
-        };
-        passwordless-sync-users = ["biruang"];
-      };
 
       #health check
       smartd = {
@@ -140,24 +92,10 @@
     };
 
     hardware = {
-      graphics = {
-        enable = true;
-        enable32Bit = true;
-        extraPackages = with pkgs; [
-          libva-vdpau-driver
-          libvdpau-va-gl
-          rocmPackages.clr.icd
-        ];
-      };
-      amdgpu = {
-        initrd.enable = true;
-        opencl.enable = true;
-      };
-      bluetooth = {
-        enable = true;
-        powerOnBoot = true;
-      };
-      i2c.enable = true;
+      #bluetooth = {
+      #  enable = true;
+      #  powerOnBoot = true;
+      #};
     };
 
     users = {
@@ -173,9 +111,9 @@
         };
       };
     };
-    home-manager.users = {
-      "biruang" = self.homeModules.biruangModule;
-    };
+    #home-manager.users = {
+    #  "biruang" = self.homeModules.biruangModule;
+    #};
 
     time.timeZone = "Asia/Tomsk";
     i18n.defaultLocale = "en_US.UTF-8";
