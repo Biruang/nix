@@ -12,6 +12,7 @@
     imports = [
       self.nixosModules.mainHardware
       self.nixosModules.myDocker
+      self.nixosModules.openrgb
     ];
 
     environment = {
