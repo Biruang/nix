@@ -14,10 +14,12 @@
       self.homeModules.myVscode
       self.homeModules.myFirefox
       self.homeModules.myGit
-      self.homeModules.myZsh
+      #self.homeModules.myZsh
+      #self.homeModules.zsh
       self.homeModules.myNiri
       self.homeModules.myNoctalia
-      self.homeModules.myGhostty
+      #self.homeModules.myGhostty
+      self.homeModules.ghostty
     ];
 
     home = {
