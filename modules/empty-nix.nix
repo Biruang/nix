@@ -23,6 +23,6 @@
     self',
     ...
   }: {
-    packages.hello = pkgs.hello;
+    #packages.hello = pkgs.hello;
   };
 }
