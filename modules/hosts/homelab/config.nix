@@ -15,10 +15,7 @@
 
     environment = {
       systemPackages = with pkgs; [
-        #mesa
-
-        #LSP for nix
-        #nixd
+        git
       ];
     };
 
@@ -85,7 +82,7 @@
         enable = true;
         devices = [
           {
-            device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
+            device = "/dev/disk/by-id/nvme-MTFDKBA1T0TFH-1BC1AABHA_UMDMD01J1GBWKE";
           }
         ];
       };
@@ -111,9 +108,9 @@
         };
       };
     };
-    #home-manager.users = {
-    #  "biruang" = self.homeModules.biruangModule;
-    #};
+    home-manager.users = {
+      "biruang" = self.homeModules.homelabHome;
+    };
 
     time.timeZone = "Asia/Tomsk";
     i18n.defaultLocale = "en_US.UTF-8";
