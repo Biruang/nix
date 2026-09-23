@@ -66,6 +66,7 @@
           "vscode"
           "yandex-music"
           "telegram-desktop"
+          "vscode-extension-ms-vscode-remote-remote-ssh"
         ];
     };
 

@@ -32,9 +32,8 @@
         clean.extraArgs = "--keep-since 4d --keep 3";
         flake = "/home/biruang/nix";
       };
-      #amnezia-vpn.enable = true;
       zsh.enable = true;
-      #niri.enable = true;
+      nix-ld.enable = true;
     };
 
     nix.settings = {

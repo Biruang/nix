@@ -10,6 +10,7 @@
         extensions = with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
           kamadorueda.alejandra
+          ms-vscode-remote.remote-ssh
         ];
         userSettings = {
           #For Nix IDE
