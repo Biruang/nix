@@ -1,11 +1,20 @@
 {
   self,
-  inputs,
+  moduleWithSystem,
   ...
 }: {
-  flake.homeModules.myFirefox = {pkgs, ...}: {
+  flake.homeModules.firefox = moduleWithSystem ({
+    pkgs,
+    self',
+    inputs',
+    ...
+  }: let
+    modules = with self.homeModules; [];
+  in {
+    imports = modules;
     programs.firefox = {
       enable = true;
+      package = self'.packages.myFirefox;
 
       profiles.default.search = {
         force = true;
@@ -114,5 +123,14 @@
         };
       };
     };
+  });
+
+  perSystem = {
+    pkgs,
+    lib,
+    self',
+    ...
+  }: {
+    packages.myFirefox = pkgs.firefox;
   };
 }

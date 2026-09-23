@@ -10,7 +10,7 @@
     ...
   }: {
     imports = [
-      self.nixosModules.myHomeManager
+      self.nixosModules.homeManager
       self.nixosModules.mainHardware
       self.nixosModules.docker
       self.nixosModules.openrgb

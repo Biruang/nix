@@ -10,9 +10,8 @@
   }: {
     imports = [
       self.homeModules.vscode
-      self.homeModules.myFirefox
+      self.homeModules.firefox
       self.homeModules.git
-      #self.homeModules.zsh
       self.homeModules.niri
       self.homeModules.ghostty
     ];
