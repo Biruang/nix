@@ -18,12 +18,23 @@
       systemPackages = with pkgs; [
         git
         ghostty.terminfo
+        #LSP for nix
+        nixd
       ];
     };
 
     fonts.packages = [
       pkgs.nerd-fonts._0xproto
     ];
+
+    #allow satan to your soul EXSPLICITLY
+    nixpkgs.config = {
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "vscode"
+          "vscode-extension-ms-vscode-remote-remote-ssh"
+        ];
+    };
 
     programs = {
       nh = {

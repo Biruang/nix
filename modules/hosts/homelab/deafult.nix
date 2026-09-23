@@ -9,9 +9,9 @@ in {
     system = system;
     modules = [
       self.nixosModules.homelabConfig
-      #{
-      #  environment.systemPackages = [inputs.alejandra.defaultPackage.${system}];
-      #}
+      {
+        environment.systemPackages = [inputs.alejandra.defaultPackage.${system}];
+      }
     ];
   };
 }
