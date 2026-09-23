@@ -58,12 +58,4 @@
       };
     };
   });
-  #perSystem = {
-  #  pkgs,
-  #  lib,
-  #  self',
-  #  ...
-  #}: {
-  #  packages.hello = pkgs.hello;
-  #};
 }

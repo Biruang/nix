@@ -1,28 +1,11 @@
 {
   self,
-  moduleWithSystem,
   lib,
   ...
 }: {
-  flake.homeModules.vscode = moduleWithSystem ({
-    pkgs,
-    self',
-    inputs',
-    ...
-  }: let
-    modules = with self.homeModules; [];
-  in {
-    imports = modules;
-
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "vscode"
-        "vscode-extension-ms-vscode-remote-remote-ssh"
-      ];
-
+  flake.homeModules.vscode = {pkgs, ...}: {
     programs.vscode = {
       enable = true;
-      package = self'.packages.myVscode;
       profiles.default = {
         extensions = with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
@@ -60,13 +43,5 @@
         };
       };
     };
-  });
-  perSystem = {
-    pkgs,
-    lib,
-    self',
-    ...
-  }: {
-    packages.myVscode = pkgs.vscode;
   };
 }

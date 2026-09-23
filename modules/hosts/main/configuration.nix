@@ -65,6 +65,8 @@
         builtins.elem (lib.getName pkg) [
           "yandex-music"
           "telegram-desktop"
+          "vscode"
+          "vscode-extension-ms-vscode-remote-remote-ssh"
         ];
     };
 
