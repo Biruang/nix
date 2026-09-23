@@ -12,7 +12,7 @@
     imports = [
       self.nixosModules.myHomeManager
       self.nixosModules.mainHardware
-      self.nixosModules.myDocker
+      self.nixosModules.docker
       self.nixosModules.openrgb
     ];
 
@@ -63,10 +63,8 @@
     nixpkgs.config = {
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
-          "vscode"
           "yandex-music"
           "telegram-desktop"
-          "vscode-extension-ms-vscode-remote-remote-ssh"
         ];
     };
 

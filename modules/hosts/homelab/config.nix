@@ -16,7 +16,6 @@
 
     environment = {
       systemPackages = with pkgs; [
-        git
         ghostty.terminfo
         #LSP for nix
         nixd

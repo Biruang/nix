@@ -1,9 +1,18 @@
 {
   self,
   inputs,
+  moduleWithSystem,
   ...
 }: {
-  flake.homeModules.myNoctalia = {
+  flake.homeModules.noctalia = moduleWithSystem ({
+    pkgs,
+    self',
+    inputs',
+    ...
+  }: let
+    modules = [inputs.noctalia.homeModules.default];
+  in {
+    imports = modules;
     programs.noctalia = {
       enable = true;
 
@@ -48,5 +57,13 @@
         };
       };
     };
-  };
+  });
+  #perSystem = {
+  #  pkgs,
+  #  lib,
+  #  self',
+  #  ...
+  #}: {
+  #  packages.hello = pkgs.hello;
+  #};
 }

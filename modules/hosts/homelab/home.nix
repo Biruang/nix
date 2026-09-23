@@ -9,7 +9,7 @@
     ...
   }: {
     imports = [
-      self.homeModules.myGit
+      self.homeModules.git
       self.homeModules.zsh
     ];
 

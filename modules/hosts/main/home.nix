@@ -9,14 +9,11 @@
     ...
   }: {
     imports = [
-      inputs.noctalia.homeModules.default
-      inputs.niri.homeModules.niri
-      self.homeModules.myVscode
+      self.homeModules.vscode
       self.homeModules.myFirefox
-      self.homeModules.myGit
+      self.homeModules.git
       #self.homeModules.zsh
-      self.homeModules.myNiri
-      self.homeModules.myNoctalia
+      self.homeModules.niri
       self.homeModules.ghostty
     ];
 
