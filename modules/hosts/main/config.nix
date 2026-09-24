@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.homelabConfig = {
+  flake.nixosModules.mainConfiguration = {
     pkgs,
     lib,
     config,
@@ -11,15 +11,30 @@
   }: {
     imports = [
       self.nixosModules.homeManager
-      self.nixosModules.homelabHardware
+      self.nixosModules.mainHardware
       self.nixosModules.docker
-      #self.nixosModules.core
+      self.nixosModules.gaming
       self.nixosModules.desktop
     ];
 
+    #allow satan to your soul EXSPLICITLY
+    nixpkgs.config = {
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "yandex-music"
+          "telegram-desktop"
+          "vscode"
+          "vscode-extension-ms-vscode-remote-remote-ssh"
+          "steam"
+          "steam-original"
+          "steam-unwrapped"
+          "steam-run"
+        ];
+    };
+
     networking = {
       wireless.enable = true;
-      hostName = "homelab";
+      hostName = "main";
     };
 
     services = {
@@ -28,7 +43,7 @@
         enable = true;
         devices = [
           {
-            device = "/dev/disk/by-id/nvme-MTFDKBA1T0TFH-1BC1AABHA_UMDMD01J1GBWKE";
+            device = "/dev/disk/by-id/nvme-ADATA_LEGEND_960_2O3329AKK4G9";
           }
         ];
       };
@@ -45,7 +60,7 @@
       };
     };
     home-manager.users = {
-      "biruang" = self.homeModules.homelabHome;
+      "biruang" = self.homeModules.biruangModule;
     };
   };
 }

@@ -17,6 +17,11 @@
   in
     {config, ...}: {
       imports = modules;
+
+      home.packages = [
+        #pkgs.xwayland-satellite
+      ];
+
       programs.niri = {
         enable = true;
 

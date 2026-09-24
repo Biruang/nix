@@ -1,5 +1,6 @@
 {
   self,
+  inputs,
   moduleWithSystem,
   ...
 }: {
@@ -23,11 +24,16 @@
       ];
     };
 
+    networking = {
+      networkmanager.enable = true;
+    };
+
     fonts.packages = [
       pkgs.nerd-fonts._0xproto
     ];
 
     programs = {
+      nix-ld.enable = true;
       nh = {
         enable = true;
         clean.enable = true;
@@ -47,12 +53,36 @@
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
+
+      substituters = [
+        "https://cache.nixos.org"
+        #random binary cache from some dude. secure asf
+        "https://niri-epireyn.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
+      ];
     };
 
     services = {
       upower.enable = true;
       power-profiles-daemon.enable = true;
       openssh.enable = true;
+    };
+
+    time.timeZone = "Asia/Tomsk";
+    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "ru_RU.UTF-8";
+      LC_IDENTIFICATION = "ru_RU.UTF-8";
+      LC_MEASUREMENT = "ru_RU.UTF-8";
+      LC_MONETARY = "ru_RU.UTF-8";
+      LC_NAME = "ru_RU.UTF-8";
+      LC_NUMERIC = "ru_RU.UTF-8";
+      LC_PAPER = "ru_RU.UTF-8";
+      LC_TELEPHONE = "ru_RU.UTF-8";
+      LC_TIME = "ru_RU.UTF-8";
     };
 
     zramSwap = {
