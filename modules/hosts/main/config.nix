@@ -39,6 +39,7 @@
     };
 
     services = {
+      power-profiles-daemon.enable = true;
       #health check
       smartd = {
         enable = true;

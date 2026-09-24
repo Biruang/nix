@@ -16,6 +16,7 @@
 
     environment = {
       systemPackages = with pkgs; [
+        fastfetch
         ghostty.terminfo
         upower
         ddcutil
@@ -67,7 +68,6 @@
 
     services = {
       upower.enable = true;
-      power-profiles-daemon.enable = true;
       openssh.enable = true;
     };
 
