@@ -24,7 +24,6 @@
         nvidiaSettings = true;
         prime = {
           sync.enable = true;
-
           # integrated
           intelBusId = "PCI:0:2:0";
           # dedicated
