@@ -19,8 +19,9 @@
         enable32Bit = true;
       };
       nvidia = {
-        open = true;
+        open = false;
         modesetting.enable = true;
+        nvidiaSettings = true;
         prime = {
           sync.enable = true;
 
