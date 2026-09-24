@@ -10,7 +10,7 @@
   }: {
     imports = [
       self.homeModules.git
-      self.homeModules.zsh
+      #self.homeModules.zsh
     ];
 
     home = {

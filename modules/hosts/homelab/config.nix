@@ -13,8 +13,7 @@
       self.nixosModules.homeManager
       self.nixosModules.homelabHardware
       self.nixosModules.docker
-      #self.nixosModules.core
-      self.nixosModules.desktop
+      self.nixosModules.core
     ];
 
     networking = {

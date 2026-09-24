@@ -14,6 +14,7 @@
       self.nixosModules.mainHardware
       self.nixosModules.docker
       self.nixosModules.gaming
+      self.nixosModules.amdDrivers
       self.nixosModules.desktop
     ];
 

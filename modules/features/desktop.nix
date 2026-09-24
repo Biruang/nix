@@ -13,7 +13,6 @@
   }: let
     nixModules = [
       inputs.noctalia-greeter.nixosModules.default
-      self.nixosModules.amdDrivers
       self.nixosModules.openrgb
       self.nixosModules.core
     ];
