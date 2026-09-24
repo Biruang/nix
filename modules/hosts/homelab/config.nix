@@ -11,6 +11,7 @@
     imports = [
       self.nixosModules.homeManager
       self.nixosModules.homelabHardware
+      self.nixosModules.nvidiaDrivers
       self.nixosModules.docker
       self.nixosModules.core
     ];
@@ -23,6 +24,13 @@
       wireless.enable = true;
       hostName = "homelab";
     };
+
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "nvidia-x11"
+        "nvidia-settings"
+        "nvidia-persistenced"
+      ];
 
     services = {
       thermald.enable = true;
@@ -56,6 +64,8 @@
           }
         ];
       };
+
+      xserver.videoDrivers = ["nvidia"];
     };
 
     users = {
