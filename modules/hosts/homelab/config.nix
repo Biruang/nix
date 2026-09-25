@@ -13,7 +13,8 @@
       self.nixosModules.homelabHardware
       self.nixosModules.nvidiaDrivers
       self.nixosModules.docker
-      self.nixosModules.core
+      #self.nixosModules.core
+      self.nixosModules.desktop
     ];
 
     environment.systemPackages = [];

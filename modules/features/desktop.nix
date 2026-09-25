@@ -20,6 +20,7 @@
       niri
       ghostty
       firefox
+      obsidian
     ];
   in {
     imports = nixModules;
