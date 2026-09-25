@@ -14,6 +14,7 @@
     imports = modules;
     virtualisation.docker = {
       enable = true;
+      storageDriver = "btrfs";
       package = self'.packages.myDocker;
     };
 
