@@ -13,8 +13,7 @@
       self.nixosModules.homelabHardware
       self.nixosModules.nvidiaDrivers
       self.nixosModules.docker
-      #self.nixosModules.core
-      self.nixosModules.desktop
+      self.nixosModules.core
     ];
 
     environment.systemPackages = [];
@@ -24,6 +23,29 @@
     networking = {
       wireless.enable = true;
       hostName = "homelab";
+      firewall = {
+        enable = true;
+        allowedTCPPorts = [
+          80
+          443
+          #jellyfin
+          8096
+        ];
+        allowedUDPPorts = [
+          #jellyfin
+          7359
+        ];
+        allowedUDPPortRanges = [
+          {
+            from = 4000;
+            to = 4007;
+          }
+          {
+            from = 8000;
+            to = 8010;
+          }
+        ];
+      };
     };
 
     nixpkgs.config.allowUnfree = true;
