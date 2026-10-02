@@ -9,7 +9,7 @@
     ...
   }: {
     imports = [
-      self.homeModules.vscode
+      self.homeModules.vscodium
       self.homeModules.git
     ];
 

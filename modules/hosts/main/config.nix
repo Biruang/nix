@@ -18,14 +18,19 @@
       self.nixosModules.desktop
     ];
 
+    environment.systemPackages = [
+      pkgs.unzip
+      pkgs.jq
+    ];
+
     #allow satan to your soul EXSPLICITLY
     nixpkgs.config = {
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
           "yandex-music"
           "telegram-desktop"
-          "vscode"
-          "vscode-extension-ms-vscode-remote-remote-ssh"
+          #"vscode"
+          #"vscode-extension-ms-vscode-remote-remote-ssh"
           "steam"
           "steam-original"
           "steam-unwrapped"

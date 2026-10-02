@@ -46,7 +46,10 @@
         });
       })
     ];
-    environment.systemPackages = [pkgs.xwayland-satellite];
+    environment.systemPackages = [
+      pkgs.xwayland-satellite
+      pkgs.qbittorrent
+    ];
 
     programs = {
       amnezia-vpn.enable = true;
