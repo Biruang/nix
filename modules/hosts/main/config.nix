@@ -21,6 +21,8 @@
     environment.systemPackages = [
       pkgs.unzip
       pkgs.jq
+      pkgs.rar
+      pkgs.p7zip-rar
     ];
 
     #allow satan to your soul EXSPLICITLY
@@ -36,6 +38,8 @@
           "steam-unwrapped"
           "steam-run"
           "obsidian"
+          "p7zip"
+          "rar"
         ];
     };
 
@@ -63,7 +67,7 @@
         "biruang" = {
           isNormalUser = true;
           description = "biruang";
-          extraGroups = ["networkmanager" "wheel"];
+          extraGroups = ["networkmanager" "wheel" "gamemode"];
         };
       };
     };
